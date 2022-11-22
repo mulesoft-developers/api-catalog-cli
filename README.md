@@ -40,13 +40,13 @@ Install instructions
 
 <a href="https://anypoint.mulesoft.com/login/signup" ><img width="250" src="/images/start-platform.png"><a>
 	
-Download [Visual Studio Code](https://code.visualstudio.com/Download)
+2. Download [Visual Studio Code](https://code.visualstudio.com/Download)
 
-Install [NodeJS and npm](https://nodejs.org/en/download/)
+3. Install [NodeJS and npm](https://nodejs.org/en/download/)
 
-2. Download 'Follow Tutorial' as a zip file.
+4. Download 'Follow Tutorial' as a zip file.
 
-3. Place the content in an accesible location on your machine
+5. Place the content in an accesible location on your machine
 
 
 ## Contributing
