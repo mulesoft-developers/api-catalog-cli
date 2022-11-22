@@ -2,31 +2,35 @@
 	<img
 	width="150"
 	src="/images/max-terminal.gif"></br>
-	Tutorial Name<br>     
+	Anypoint API Catalog CLI Tutorials <br>     
 </h1>
 
 <h4 align="center">
 	<a href="#overview">Overview</a> |
 	<a href="#installation-instructions">Install Me</a> |
-	<a href="#faqs">FAQs</a> |
 	<a href="#contributing">Contribute</a>
 </h4>
 	
 <h3 align="center">
-	This is the tutorial short description<br><br>
+	Learn how to automatically discover and catalog APIs through this two part series on Anypoint Catalog CLI. <br><br>
 </h3>
 
-## Tutorial and Video
+## Tutorial
 
-For a step by step tutorial navigate to the MuleSoft developer website [here](https://www.youtube.com/watch?v=5Xd5B_twt9w)
+For a step by step tutorial navigate to the MuleSoft developer website
 
-For a video of the tutorial go [here](https://www.youtube.com/watch?v=5Xd5B_twt9w).
+[part1 -- to add](https://www.youtube.com/watch?v=5Xd5B_twt9w)
+
+[part2 -- to add](https://www.youtube.com/watch?v=5Xd5B_twt9w)
 
 ## Overview
 
-Detailed Description
+The 'Follow Tutorial' folder is an example repository of APIs to use with the step-by-step tutorial. 
 
-> This sample application is designed to run on MuleSoft's Anypoint Platform.
+Includes:
+- Shipping API with example documentation 
+- Payments API
+- GitHub workflow file, 'publish-asset.yml' for CI/CD purposes
 
 ## Installation Instructions
 
@@ -36,35 +40,20 @@ Install instructions
 
 <a href="https://anypoint.mulesoft.com/login/signup" ><img width="250" src="/images/start-platform.png"><a>
 	
-<a href="https://www.mulesoft.com/lp/dl/studio" ><img width="250" src="/images/download-studio.png"><a>
-	
-<a href="https://developer.mulesoft.com/learn/dataweave" ><img width="250" src="/images/open-dataweave.png"><a>
+Download [Visual Studio Code](https://code.visualstudio.com/Download)
 
-2. Clone this repository.
+Install [NodeJS and npm](https://nodejs.org/en/download/)
 
-3. In Anypoint Studio, select `File` > `Import` > `Anypoint Studio` > `Anypoint Studio project from File System` and click Next.
+2. Download 'Follow Tutorial' as a zip file.
 
-4. Select the cloned repository in the Project Root and make sure to **uncheck** the `Copy project into workspace` option.
+3. Place the content in an accesible location on your machine
 
-5. Click on Finish.
-
-## FAQs
-
-#### How do I ?
-
-Answer.
 
 ## Contributing
 
 Contributions are what make the MuleSoft community such an amazing place. Any contributions you make are **greatly appreciated**.
 	
 See [contributing.md](/contributing.md) for the MuleSoft Developer principles.
-
-## Utilities and Dependencies
-
-#### Dependencies
-
--   xxx
 
 #### Code formatting
 

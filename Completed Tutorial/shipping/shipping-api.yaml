@@ -1,0 +1,68 @@
+---
+openapi: 3.0.0
+info:
+  title: Shipping API
+  description: This is a shipping API that consolidates requests between all the shipping vendors - UPS, FedEx and USPS.
+  version: v1
+paths:  
+  "/track":
+    servers:
+      - url: https://ntoretail.com/api/shipping
+    get:
+      operationId: Get Tracking information
+      parameters:
+      - name: email
+        required: true
+        in: query
+        schema:
+          example: max@mulesoft.com
+          type: string
+      - name: orderID
+        required: true
+        in: query
+        schema:
+          example: 900000106
+          type: integer
+          format: int
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/unifiedShippingResponse'
+
+components:
+  schemas:
+    unifiedShippingResponse:
+      type: object
+      additionalProperties: true
+      required:
+      - ShipVendor
+      - ShipDate
+      - ETA
+      - ShipStatus
+      properties:
+        ShipVendor:
+          example: UPS
+          type: string
+        ShipDate:
+          example: '2022-02-02'
+          type: string
+          format: date
+        ETA:
+          example: '2022-04-05T09:06:56'
+          type: string
+          format: date-time-only
+        ShipStatus:
+          enum:
+          - Delivered
+          - Shipped
+          - Ordered
+          - In-transit
+          - Returned
+          example: Delivered
+          type: string

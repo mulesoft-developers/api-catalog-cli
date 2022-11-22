@@ -1,0 +1,1144 @@
+swagger: '2.0'
+info:
+  title: Invoice Payment System API
+  description: SAP S/4HANA System API for payments, based on **FINS Payments Web UI Experience API**
+  version: v1.1
+paths:
+  /ping:
+    x-amf-displayName: Ping
+    get:
+      description: Get the current health status of this API
+      parameters:
+        - name: checkDependencies
+          description: Set to true to check and report status of all dependencies, such as system connections and downstream APIs; default is false
+          in: query
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/PingResponse'
+  /payments:
+    x-amf-description: Endpoint responsible for manipulation with payments
+    post:
+      description: Create a new payment
+      parameters:
+        - name: x-correlation-id
+          in: header
+          type: string
+          maxLength: 50
+        - x-amf-mediaType: application/json
+          in: body
+          name: generated
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+      responses:
+        '201':
+          description: ''
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/BasicResponse'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: No valid credentials found to access the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: The server has refused access to the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '405':
+          description: The request method is not supported for the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '406':
+          description: The target resource does not have a current representation that would be acceptable to the user agent.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '415':
+          description: The accept header specified an unsupported media type.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '429':
+          description: An API request rate limit has been exceeded.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: An internal error occurred while processing the API request.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '501':
+          description: The method has not been implemented.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    get:
+      description: Get all payments
+      parameters:
+        - name: parentId
+          description: External identifier
+          required: false
+          in: query
+          type: string
+        - name: updatedDate
+          description: Payments newer like specific date
+          required: false
+          in: query
+          type: string
+        - name: x-correlation-id
+          in: header
+          type: string
+          maxLength: 50
+      responses:
+        '200':
+          description: ''
+          x-amf-mediaType: application/json
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: No valid credentials found to access the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: The server has refused access to the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '405':
+          description: The request method is not supported for the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '406':
+          description: The target resource does not have a current representation that would be acceptable to the user agent.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '415':
+          description: The accept header specified an unsupported media type.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '429':
+          description: An API request rate limit has been exceeded.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: An internal error occurred while processing the API request.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '501':
+          description: The method has not been implemented.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /payments/{id}:
+    x-amf-description: |
+      Working with specific payment:
+      * Retrieving specific payment
+      * Updating specific payment
+      * Deleting specific payment
+    get:
+      description: Get payment specified by id
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: x-correlation-id
+          in: header
+          type: string
+          maxLength: 50
+      responses:
+        '200':
+          description: ''
+          x-amf-mediaType: application/json
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: No valid credentials found to access the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: The server has refused access to the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '405':
+          description: The request method is not supported for the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '406':
+          description: The target resource does not have a current representation that would be acceptable to the user agent.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '415':
+          description: The accept header specified an unsupported media type.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '429':
+          description: An API request rate limit has been exceeded.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: An internal error occurred while processing the API request.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '501':
+          description: The method has not been implemented.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      description: Update payment specified by id
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+        - name: x-correlation-id
+          in: header
+          type: string
+          maxLength: 50
+        - x-amf-mediaType: application/json
+          in: body
+          name: generated
+          schema:
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: ''
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/BasicResponse'
+        '400':
+          description: The server cannot or will not process the request due to something that is perceived to be a client error.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: No valid credentials found to access the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: The server has refused access to the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '405':
+          description: The request method is not supported for the requested resource.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '406':
+          description: The target resource does not have a current representation that would be acceptable to the user agent.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '415':
+          description: The accept header specified an unsupported media type.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '429':
+          description: An API request rate limit has been exceeded.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: An internal error occurred while processing the API request.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '501':
+          description: The method has not been implemented.
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      description: Delete payment specified by id
+      parameters:
+        - name: id
+          required: true
+          in: path
+          type: string
+      responses:
+        '200':
+          description: ''
+          x-amf-mediaType: application/json
+          schema:
+            $ref: '#/definitions/BasicResponse'
+definitions:
+  PingResponse:
+    description: Represents a standard response structure for API health checks
+    example:
+      status: OK
+      apiName: accelerator-salesforce-sys-api
+      apiVersion: 1.3.0
+      timestamp: '2020-08-01T13:15:25.000Z'
+      dependencies:
+        - name: Salesforce
+          status: UP
+    type: object
+    additionalProperties: true
+    required:
+      - status
+      - apiName
+      - apiVersion
+      - timestamp
+    properties:
+      status:
+        description: Describes the overall status of the API, including system connectivity states. When dependency checks are included, the status identifies whether the API is fully functional (OK), one or more dependencies are down (DEGRADED), or all dependencies are down (OFFLINE).
+        enum:
+          - OK
+          - DEGRADED
+          - OFFLINE
+        type: string
+      apiName:
+        description: Asset name of the API returning the response
+        type: string
+        maxLength: 128
+      apiVersion:
+        description: Complete version of the API returning the response; format is major.minor.patch
+        type: string
+        minLength: 5
+        maxLength: 11
+      timestamp:
+        type: string
+        format: date-time
+      dependencies:
+        description: Optional list of connections this API is dependent upon
+        type: array
+        items:
+          $ref: '#/definitions/PingStatus'
+  Payment:
+    example:
+      paymentStatus: laborum
+      paymentEffectiveDate: '1965-01-03'
+      id: ipsum veniam est
+      paymentType: aliquip laborum fugiat
+      authorizationProcessingMode: cillum ex Excepteur enim
+      paymentNumber: cillum enim velit voluptate amet
+      paymentAmount: -6362755
+      macAddress: dolore qui magna quis
+      paymentGateway:
+        - id: null
+          name: fugiat dolore sit
+          paymentGatewayStatus: ex
+          paymentGatewayCommentText: tempor nostrud eiusmod irure in
+          auditInfo:
+            isDeleted: false
+            createdBy: id
+            updatedBy: ad Lorem incididunt
+            updatedDate: null
+            createdDate: null
+          systemCredential: quis in Lorem
+          paymentGatewayProvider:
+            - adipisicing officia et
+      latestGatewayInternalResult: consectetur cillum incididunt laboris
+      netAppliedAmount: 64921198
+      externalIds:
+        - externalIdType:
+            - id: consequat sit incididunt ipsum tempor
+              name: consequat magna laborum
+          externalId: dolor eiusmod ex
+          id: null
+          statusLastChangedDate: '1950-06-14T22:28:28.759Z'
+          status: INVALID
+      balanceAmount: null
+      paymentTreatment:
+        - velit in
+      paymentMethod:
+        - Excepteur deserunt qui do
+      commentText: mollit
+      latestGatewayResultCode:
+        - id: null
+          name: exercitation nisi dolore in commodo
+          description: labore esse culpa cillum
+          auditInfo:
+            isDeleted: null
+            createdBy: eu exercitation culpa sit amet
+            updatedBy: est deserunt
+            updatedDate: '2001-05-21T01:38:58.718Z'
+            createdDate: '1986-06-08T14:36:21.947Z'
+      iPAddress: Duis ut Lorem qui
+      paymentGroup:
+        - magna nisi incididunt ad
+      internalBusinessUnit:
+        - dolor enim magna
+      latestGatewayInternalReferenceNumber: dolor amet reprehenderit
+      latestGatewayDate: '2016-12-02'
+      name: sint
+      auditInfo:
+        isDeleted: null
+        createdBy: mollit consequat cupidatat culpa nostrud
+        updatedBy: ad ut tempor ipsum
+        updatedDate: null
+        createdDate: null
+      salesOrderPaymentSummary:
+        - Lorem ad ea
+      latestGatewayReferenceNumber: ut in
+      externalCreatedDate: null
+      totalAppliedAmount: -10785230
+      customerPhoneNumber: reprehenderit dolore
+      paymentCancellationDate: '1977-07-30'
+    type: object
+    additionalProperties: true
+    required:
+      - paymentStatus
+      - paymentEffectiveDate
+      - id
+      - paymentType
+      - authorizationProcessingMode
+      - paymentNumber
+      - paymentAmount
+    properties:
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+      paymentStatus:
+        type: string
+      latestGatewayInternalResult:
+        type: string
+      customerEmailAddress:
+        type: string
+      commentText:
+        type: string
+      paymentEffectiveDate:
+        type: string
+        format: date
+      macAddress:
+        type: string
+      paymentCancellationDate:
+        $ref: '#/definitions/default'
+      name:
+        type: string
+      latestGatewayReferenceNumber:
+        type: string
+      salesOrderPaymentSummary:
+        type: array
+        items:
+          type: string
+      internalBusinessUnit:
+        type: array
+        items:
+          type: string
+      id:
+        $ref: '#/definitions/default_1'
+      paymentType:
+        type: string
+      account:
+        type: array
+        items:
+          type: string
+      totalUnappliedAmount:
+        $ref: '#/definitions/default_2'
+      latestGatewayDate:
+        $ref: '#/definitions/default_3'
+      iPAddress:
+        type: string
+      authorizationProcessingMode:
+        type: string
+      paymentNumber:
+        type: string
+      externalIds:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/ExternalId'
+      paymentTreatment:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentTreatment'
+      paymentMethod:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentMethod'
+      totalAppliedAmount:
+        $ref: '#/definitions/default_4'
+      paymentGateway:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentGateway'
+      paymentAmount:
+        type: integer
+      paymentGroup:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentGroup'
+      latestPaymentGatewayMessageText:
+        type: string
+      latestGatewayInternalReferenceNumber:
+        type: string
+      customerPhoneNumber:
+        type: string
+      netAppliedAmount:
+        $ref: '#/definitions/default_5'
+      balanceAmount:
+        $ref: '#/definitions/default_6'
+      externalCreatedDate:
+        $ref: '#/definitions/default_7'
+      latestGatewayResultCode:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentGatewayResultCode'
+  BasicResponse:
+    description: Represents a basic response structure that can be returned by APIs to indicate status and result messages for success or extended error scenarios
+    example:
+      responseStatus: SUCCESS
+    type: object
+    additionalProperties: true
+    required:
+      - responseStatus
+    properties:
+      responseStatus:
+        $ref: '#/definitions/ResponseStatus'
+      resultMessages:
+        type: array
+        items:
+          $ref: '#/definitions/ResultMessage_8'
+  ErrorResponse:
+    description: Represents a standard message body to be returned with error responses
+    x-amf-examples:
+      example_33:
+        errorCode: '404'
+        errorMessage: Requested resource was not found
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_30:
+        errorCode: '400'
+        errorMessage: Invalid request message
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_36:
+        errorCode: '415'
+        errorMessage: The server is refusing to the request because it is not in a format supported by the target resource.
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_37:
+        errorCode: '429'
+        errorMessage: The server is refusing to handle the request because a rate limit has been exceeded.
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_32:
+        errorCode: '403'
+        errorMessage: Access to the requested resource was denied
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_35:
+        errorCode: '406'
+        errorMessage: The requested resource cannot generate acceptable content according to the Accept headers sent in the request.
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_38:
+        errorCode: '500'
+        errorMessage: The server was unable to process the request due to an internal error
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_34:
+        errorCode: '405'
+        errorMessage: The target resource does not support the requested method
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_31:
+        errorCode: '401'
+        errorMessage: Required credentials are missing or invalid
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+      example_39:
+        errorCode: '501'
+        errorMessage: Not Implemented
+        transactionId: dd960082-abbf-47c2-8c65-f18eeb35848b
+        timeStamp: '2019-09-30T15:27:49.274Z'
+    type: object
+    additionalProperties: true
+    required:
+      - errorCode
+      - errorMessage
+      - transactionId
+      - timeStamp
+    properties:
+      errorCode:
+        description: Short code to identify the error
+        example: INVALID_PARAMETER
+        type: string
+      errorMessage:
+        description: Verbose human readable error message
+        example:
+          value: The value you entered is out of bounds
+        type: string
+      transactionId:
+        description: Request identifier
+        example: dd960082-abbf-47c2-8c65-f18eeb35848b
+        type: string
+      timeStamp:
+        description: event date time
+        example: '2019-09-23T11:46:44.256-05:00'
+        type: string
+        format: date-time
+  ResultMessage:
+    description: Represents a single message to be included in the response
+    example:
+      severity: ERROR
+      code: SYSGEN5000
+      message: The system failed to process the request
+      parameters:
+        - paramName: ResourceName
+          paramValue: /accounts
+        - paramName: ObjectId
+          paramValue: '00582245'
+    type: object
+    additionalProperties: true
+    required:
+      - severity
+      - code
+    properties:
+      severity:
+        description: Indicates the severity of this particular message item
+        enum:
+          - INFO
+          - WARNING
+          - ERROR
+        type: string
+      code:
+        type: string
+      message:
+        type: string
+      parameters:
+        type: array
+        items:
+          $ref: '#/definitions/ResultParameter'
+  PingStatus:
+    description: Represents a dependency status result for ping responses
+    type: object
+    additionalProperties: true
+    required:
+      - name
+      - status
+    properties:
+      name:
+        description: Logical name of the connection (e.g., system name)
+        type: string
+      status:
+        description: Status of the connection, identifying whether the connection was validated (UP), the connection timed out (DOWN), or the connection attempt failed for some other reason (ERROR)
+        enum:
+          - UP
+          - DOWN
+          - ERROR
+        type: string
+  AuditInfo:
+    description: Defines standard system audit fields available for most types
+    example:
+      isDeleted: true
+      createdBy: commodo minim dolore est
+      updatedBy: dolor quis nulla
+      updatedDate: '1950-01-23T19:52:29.659Z'
+      createdDate: '1950-01-23T19:52:29.659Z'
+    type: object
+    additionalProperties: true
+    required:
+      - isDeleted
+      - createdBy
+      - updatedBy
+      - updatedDate
+      - createdDate
+    properties:
+      isDeleted:
+        description: Indicates whether or not the entity has been soft-deleted
+        x-amf-union:
+          - type: boolean
+          - type: 'null'
+      createdBy:
+        description: Identifies the system or user which created the entity
+        type: string
+      updatedBy:
+        description: Identifies the system or user which last updated the entity
+        type: string
+      updatedDate:
+        description: Timestamp of when the entity was last updated
+        x-amf-union:
+          - type: string
+            format: date-time
+          - type: 'null'
+      createdDate:
+        description: Timestamp of when the entity was created
+        x-amf-union:
+          - type: string
+            format: date-time
+          - type: 'null'
+  default:
+    x-amf-union:
+      - type: string
+        format: date
+      - type: 'null'
+  default_1:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_2:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_3:
+    x-amf-union:
+      - type: string
+        format: date
+      - type: 'null'
+  default_4:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_5:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_6:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_7:
+    x-amf-union:
+      - type: string
+        format: date
+      - type: 'null'
+  ExternalId:
+    description: Defines a structure for referencing an entity in external systems
+    example:
+      externalIdType:
+        - id: id1
+          name: adipisicing labore Duis in anim
+      externalId: Ut
+      id: irure proident cillum deserunt dolor
+      status: INVALID
+      statusLastChangedDate: '1999-11-26T02:28:11.661Z'
+    type: object
+    additionalProperties: true
+    required:
+      - externalIdType
+      - externalId
+      - id
+    properties:
+      externalIdType:
+        description: Identifies the system that owns or otherwise recognizes this unique identifier
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/ExternalIdType'
+      externalId:
+        description: A unique identifier assigned to an entity in another system
+        type: string
+      id:
+        $ref: '#/definitions/default_9'
+      statusLastChangedDate:
+        description: Date and time of the last change in status
+        x-amf-union:
+          - type: string
+            format: date-time
+          - type: 'null'
+      status:
+        description: Indicates whether this identifier is currently valid or not
+        enum:
+          - VALID
+          - INVALID
+        type: string
+  PaymentTreatment:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - paymentTreatmentStatus
+    properties:
+      id:
+        $ref: '#/definitions/default_10'
+      paymentTreatmentMethod:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentTreatmentMethod'
+      paymentApplicationLevel:
+        type: string
+      shouldAutoInvoice:
+        $ref: '#/definitions/default_11'
+      paymentTreatmentStatus:
+        type: string
+      paymentPolicy:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentPolicy'
+      paymentTreatmentName:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  PaymentMethod:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - paymentMethodStatus
+    properties:
+      id:
+        $ref: '#/definitions/default_12'
+      paymentMethodType:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentMethodType'
+      paymentMethodStatus:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  PaymentGateway:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - name
+      - paymentGatewayStatus
+    properties:
+      id:
+        $ref: '#/definitions/default_13'
+      name:
+        type: string
+      paymentGatewayStatus:
+        type: string
+      paymentGatewayCommentText:
+        type: string
+      paymentGatewayProvider:
+        type: array
+        items:
+          x-amf-union:
+            - type: string
+            - $ref: '#/definitions/PaymentGatewayProvider'
+      systemCredential:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  PaymentGroup:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - totalReversalAmount
+      - totalAuthorizationAmount
+      - totalPaymentAmount
+      - paymentGroupNumber
+    properties:
+      id:
+        $ref: '#/definitions/default_14'
+      totalReversalAmount:
+        type: integer
+      totalAuthorizationAmount:
+        type: integer
+      totalPaymentAmount:
+        type: integer
+      paymentGroupNumber:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  PaymentGatewayResultCode:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - name
+      - description
+    properties:
+      id:
+        $ref: '#/definitions/default_15'
+      name:
+        type: string
+      description:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  ResponseStatus:
+    description: Represents the overall status of the operation
+    enum:
+      - SUCCESS
+      - WARNING
+      - ERROR
+    example: SUCCESS
+    type: string
+  ResultMessage_8:
+    description: Represents a single message to be included in the response
+    example:
+      severity: ERROR
+      code: SYSGEN5000
+      message: The system failed to process the request
+      parameters:
+        - paramName: ResourceName
+          paramValue: /accounts
+        - paramName: ObjectId
+          paramValue: '00582245'
+    type: object
+    additionalProperties: true
+    required:
+      - severity
+      - code
+    properties:
+      severity:
+        description: Indicates the severity of this particular message item
+        enum:
+          - INFO
+          - WARNING
+          - ERROR
+        type: string
+      code:
+        type: string
+      message:
+        type: string
+      parameters:
+        type: array
+        items:
+          $ref: '#/definitions/ResultParameter'
+  ResultParameter:
+    description: Represents an arbitrary name/value pair for returning extended response data
+    example:
+      paramName: AccountId
+      paramValue: '123456'
+    type: object
+    additionalProperties: true
+    required:
+      - paramName
+      - paramValue
+    properties:
+      paramName:
+        type: string
+      paramValue:
+        type: string
+  default_9:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  ExternalIdType:
+    description: Identifies the external system that owns or otherwise recognizes a particular identifier
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - name
+    properties:
+      id:
+        $ref: '#/definitions/default_16'
+      name:
+        type: string
+  default_10:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_11:
+    x-amf-union:
+      - type: boolean
+      - type: 'null'
+  PaymentTreatmentMethod:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - paymentTreatmentMethodName
+      - paymentTreatmentMethodCode
+      - paymentTreatmentMethodDescription
+    properties:
+      id:
+        $ref: '#/definitions/default_17'
+      paymentTreatmentMethodName:
+        type: string
+      paymentTreatmentMethodCode:
+        type: string
+      paymentTreatmentMethodDescription:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  PaymentPolicy:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - name
+      - description
+      - paymentPolicyStatus
+    properties:
+      id:
+        $ref: '#/definitions/default_18'
+      name:
+        type: string
+      description:
+        type: string
+      paymentPolicyTreatmentSelection:
+        type: string
+      paymentPolicyStatus:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  default_12:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  PaymentMethodType:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+    properties:
+      id:
+        $ref: '#/definitions/default_19'
+      name:
+        type: string
+      typeDescription:
+        type: string
+      mediaType:
+        type: string
+      maxPerPeriodAmount:
+        $ref: '#/definitions/default_20'
+      typeRequiredIdentification:
+        type: string
+      useMinimumAgeYear:
+        $ref: '#/definitions/default_21'
+      maxTransactionAmount:
+        $ref: '#/definitions/default_22'
+      maxPerPeriodTransactionCount:
+        $ref: '#/definitions/default_23'
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  default_13:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  PaymentGatewayProvider:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - paymentGatewayProviderName
+    properties:
+      id:
+        $ref: '#/definitions/default_24'
+      apexAdapterClassName:
+        type: string
+      paymentGatewayProviderCommentText:
+        type: string
+      paymentGatewayProviderName:
+        type: string
+      developerName:
+        type: string
+      namespacePrefixText:
+        type: string
+      auditInfo:
+        $ref: '#/definitions/AuditInfo'
+  default_14:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_15:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_16:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_17:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_18:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_19:
+    x-amf-union:
+      - type: string
+      - type: 'null'
+  default_20:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_21:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_22:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_23:
+    x-amf-union:
+      - type: integer
+      - type: 'null'
+  default_24:
+    x-amf-union:
+      - type: string
+      - type: 'null'
