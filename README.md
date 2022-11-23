@@ -19,9 +19,9 @@
 
 For a step by step tutorial navigate to the MuleSoft developer website
 
-[part1 -- to add](https://www.youtube.com/watch?v=5Xd5B_twt9w)
+[Part 1: How to catalog APIs with Anypoint API Catalog CLI](https://developer.mulesoft.com/tutorials-and-howtos/how-to-catalog-apis-with-anypoint-api-catalog-cli/)
 
-[part2 -- to add](https://www.youtube.com/watch?v=5Xd5B_twt9w)
+[Part 2: How to implement Anypoint API Catalog CLI in GitHub Actions](https://developer.mulesoft.com/tutorials-and-howtos/how-to-implement-anypoint-api-catalog-cli-github-actions/)
 
 ## Overview
 
